@@ -4,6 +4,7 @@ public class CircleChild extends Circle {
 
     //SUPER: Az ős konstruktorának hívása, legalábbis itt
     //Az ős megfelelő metódust hívja
+
     public CircleChild() {
         super();
     }
