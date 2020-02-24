@@ -38,3 +38,23 @@ Boolean változó gettere nem "get" hanem "is" kezdetű.
 A setter és a getter egyfeladatú; mást NE tegyél bele, mint ami belevaló.
 A side effect kerülendő. Vagy inkább tilos.
 Az értékvalidáció nem side effect. ("guard effect")
+
+Deklarált típus: pl.: Lehet az ősosztály
+Futásidejű típus: A deklarált típusú változó leszármazott típusú értéket kap.
+Futásidejű típus metódusai csak castolással hívhatók meg.
+
+Final Class: Nem leszármaztatható osztály.
+abstract class: Nem példányosítható osztály. Lehetnek, sőt jellemzően vannak abstract metódusai is.
+Az abstract metódusnak nincs blokkja!
+Az abstract class leszármazottjának vagy implementálnia kell az abstract metódust, vagy szintén deklarálnia kell
+abstractként.
+
+Interface:
+- névkonvenció: "...able {}", esetleg "I... {}"
+- abstract metódus, de nem utasításokat tarttalmaz, hanem csakis szignatúrákat; természetesen csakis publikusakat.
+- pl: Class Circle extends Shape implements Drawable, Colorable, Runable { ... }
+- Külön .java állományokban helyezzük el őket. Nem classon belüli rész.
+- Interface lehet üres is: Marker interface. Azonos alakúságot biztosítanak vele.
+
+IS-A : Circle is-a Shape: Class Circle extends Shape;
+HAS-A: Composition: Circle has-a Color: Van Color adattagja;
