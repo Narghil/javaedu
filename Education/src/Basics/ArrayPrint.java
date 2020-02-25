@@ -1,5 +1,6 @@
 //Ezt a file-t használom a GitHub tesztelésére is.
 //- A GitHub-on lévő módosítás megjelent a lokális fileban.
+//- A lokális módosítások megjelentek a GitHub-on is, Commit ÉS Push után.
 package Basics;
 
 public class ArrayPrint {
