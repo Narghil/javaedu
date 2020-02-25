@@ -2,13 +2,7 @@ package HomeWork;
 
 public class StringAdventures {
     public static void main(String[] args) {
-        String[] sentences = {"Indul","a","görög","aludni"};
-        StringBuilder sentence = new StringBuilder();
-
-        for (String s:sentences) {
-            sentence.append(s);
-        }
-
+        StringBuilder sentence = new StringBuilder( String.join(" ", new String[]{"Indul","a","görög","aludni"}) );
         System.out.println(sentence.reverse());
     }
 }
