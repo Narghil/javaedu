@@ -1,4 +1,4 @@
-package HomeWork.hu.PG;
+package HomeWork.hu.PG.platenumbers;
 
 import HomeWork.hu.PG.platenumbers.Issuer;
 
@@ -16,7 +16,6 @@ public class PlateNumbers {
 }
 
 /*
-
 hu.[saját_neved].PlateNumbers:
  - itt írd meg a program belépési pontját (main metódust); igényelj néhány rendszámot az Issuer-től és írasd ki őket;
  */
