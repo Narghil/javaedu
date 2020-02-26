@@ -7,10 +7,12 @@ public class Circle {
     private boolean visible;
 
     public Circle(){
+        //this(1.0d,2.0d,3.0d);
         System.out.println("Default constructor called from "+this.getClass().getSimpleName());
     }
 
     public Circle(Double r, Double x, Double y){
+        this(); //Másik constructor meghívása!
         this.setRadius( r )   ;
         this.setXY( x, y );
         System.out.println("Constructor called from "+this.getClass().getSimpleName());

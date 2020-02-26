@@ -16,6 +16,7 @@ public class Dog {
     public static void main(String[] args) {
         Dog dog = new Dog( "Barker", "John Parker", 4);
 
-        System.out.println(dog.toString());
+        System.out.println(dog/*Enélkül is működik; a fordító megkeresi az alapértelmezett,
+        Stringet visszaadó fn-t: .toString() */);
     }
 }

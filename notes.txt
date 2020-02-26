@@ -58,3 +58,7 @@ Interface:
 
 IS-A : Circle is-a Shape: Class Circle extends Shape;
 HAS-A: Composition: Circle has-a Color: Van Color adattagja;
+
+Scope: "fókusz"; láthatósági kör.
+Scenario: "((színházi) szín"; adott eseménysorozat.
+
