@@ -1,3 +1,5 @@
+package OOP;
+
 public class Dog {
     private String name, owner;
     private int age;
