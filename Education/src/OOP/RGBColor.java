@@ -3,9 +3,8 @@ package OOP;
 public class RGBColor {
     private int red, green, blue;
 
-    private boolean validRGB( int i ){
-        return (i >= 0 && i <= 255);
-    }
+    private boolean validRGB(int i ){
+        return (i >= 0 && i <= 255);}
 
     private boolean setRGB(int red, int green, int blue) {
         if (!(validRGB(red) && validRGB(green) && validRGB(blue))) {
@@ -19,16 +18,12 @@ public class RGBColor {
     }
 
     private String toHex(int number) {
-        String hex;
-
-        hex = Integer.toHexString(number);
-        if (hex.length() < 2) {
-            hex = "0".concat(hex);
-        }
-
+        String hex = Integer.toHexString(number);
+        if (hex.length() < 2) {hex = "0".concat(hex); }
         return hex;
     }
 
+    @Override
     public String toString() {
         return "#" + toHex(this.red) + toHex(this.green) + toHex(this.blue);
     }
@@ -39,7 +34,6 @@ public class RGBColor {
 
     public static void main(String[] args) {
         RGBColor color = new RGBColor(1, 12, 123);
-
         System.out.println("Hexa color code:" + color.toString());
     }
 }
