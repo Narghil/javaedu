@@ -25,13 +25,12 @@ public class Table {
     }
 
     private void FillTable(){
+        //Ebben az implementációban Világos az 1-2., Sötét a 7-8. sorban áll.
         int row;
-        Figure f;
         //Empty pieces
         for( int r = 2 ; r < 6; r++){
             for( int c = 0; c < columns; c++){
-                f = new NoFigure(this, r, c );
-                pieces[r][c] = f;
+                pieces[r][c] = new NoFigure(this, r, c );;
             }
         }
         PlacePawns( WHITE,1 );
