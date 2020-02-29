@@ -25,10 +25,23 @@ public class NMLotto {
         }
     }
 
+    private boolean ifNumberExists( int aNumber) {
+        boolean result = false;
+        for( int i = 0; i < this.howManyNumber; i ++){
+            result = result || (randomNumbers[i] == aNumber) ;
+        }
+        return result;
+    }
+
     public void generateNumbers() {
         Random random = new Random();
+        int aNumber;
+
         for (int i = 1; i <= this.howManyNumber; i++) {
-            this.randomNumbers[i - 1] = random.nextInt(this.maxNumber) + 1;
+            do {
+                aNumber = random.nextInt(this.maxNumber) + 1;
+            } while( ifNumberExists(aNumber) );
+            this.randomNumbers[i - 1] = aNumber;
             try {
                 random.wait(i,i);
             } catch (Exception e){}
