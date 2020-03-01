@@ -5,7 +5,7 @@ import static Private.Chess.Constants.*;
 public class Table {
 
     private int rows = 8, columns = 8;
-    private Figure[][] pieces = new Figure[rows][columns];
+    public Figure[][] pieces = new Figure[rows][columns];
 
     private void PlacePawns(int side, int row) {
         for (int c = 0; c < columns; c++) {
