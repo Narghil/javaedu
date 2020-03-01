@@ -8,12 +8,10 @@ public abstract class Figure {
         int directionX;
         int directionY;
         Boolean repeating;
-        Boolean onFirstMove;
-        Boolean onCapturing;
 
-        public Direction( int dx, int dy, boolean repeating, boolean onFirstMove, boolean onCapturing ){
+        public Direction( int dx, int dy, boolean repeating ){
             directionX = dx; directionY = dy;
-            this.repeating = repeating; this.onFirstMove = onFirstMove; this.onCapturing = onCapturing;
+            this.repeating = repeating;
         }
     }
 
@@ -48,40 +46,38 @@ public abstract class Figure {
     }
 
     public Figure(Table ownerTable, int side, int figureType, int row, int column) {
-        //this.ownerTable = ownerTable;
+        this.ownerTable = ownerTable;
         this.figureType = figureType;
         this.side = side;
         this.steps = 0;
         setCoordinates(row, column);
     }
 
-    abstract public int[][] getValidMovements(); //A movementPattern miatt ez lehet, hogy nem is kell, hogy abstract legyen.
-    abstract public boolean ifValidMovement( int row, int column); //Akkor viszont ez sem az.
+    public int[][] getValidMovements(){return null;};
+    public boolean ifValidMovement( int row, int column){return false;};
 }
 
 class NoFigure extends Figure {
     public NoFigure(Table ownerTable, int row, int column) {
         super(ownerTable, NOFIGURE, NOSIDE, row, column);
         this.representer = " ";
+        movementPattern = new Direction[0];
     }
-    public int[][] getValidMovements(){ return null; }
-    public boolean ifValidMovement( int row, int column){ return false; }
 }
 
 class Pawn extends Figure {
     public Pawn(Table ownerTable, int side, int row, int column) {
         super(ownerTable, PAWN, side, row, column);
         if( side == WHITE){ representer = "P"; } else { representer = "p"; }
+        //A PAWN különleges módon mozog!
         movementPattern = new Direction[4];
-        //A PAWN különleges: Az onCapturing = false pattern szerint nem üthet.
-        //Ezt az jelzi, hogy VAN oncapturing = true patternje.
-        movementPattern[0] = new Direction(  0,1,false,false,false);
-        movementPattern[1] = new Direction(  0,2,false,true,false);
-        movementPattern[2] = new Direction( -1,1,false,false,true);
-        movementPattern[3] = new Direction(  1,1,false,false,true);
+        movementPattern[0] = new Direction(  0,1,false);
+        movementPattern[1] = new Direction(  0,2,false);
+        movementPattern[2] = new Direction( -1,1,false);
+        movementPattern[3] = new Direction(  1,1,false);
     }
+    @Override
     public int[][] getValidMovements(){ return null; }
-    public boolean ifValidMovement( int row, int column){ return false; }
 
 }
 
@@ -91,8 +87,6 @@ class Knight extends Figure {
         //K for King. N for the (K)Night
         if( side == WHITE){ representer = "N"; } else { representer = "n"; }
     }
-    public int[][] getValidMovements(){ return null; }
-    public boolean ifValidMovement( int row, int column){ return false; }
 }
 
 class Bishop extends Figure {
@@ -100,8 +94,6 @@ class Bishop extends Figure {
         super(ownerTable, BISHOP, side, row, column);
         if( side == WHITE){ representer = "B"; } else { representer = "b"; }
     }
-    public int[][] getValidMovements(){ return null; }
-    public boolean ifValidMovement( int row, int column){ return false; }
 }
 
 class Rook extends Figure {
@@ -109,8 +101,6 @@ class Rook extends Figure {
         super(ownerTable, ROOK, side, row, column);
         if( side == WHITE){ representer = "R"; } else { representer = "r"; }
     }
-    public int[][] getValidMovements(){ return null; }
-    public boolean ifValidMovement( int row, int column){ return false; }
 }
 
 class Queen extends Figure {
@@ -118,8 +108,6 @@ class Queen extends Figure {
         super(ownerTable, QUEEN, side, row, column);
         if( side == WHITE){ representer = "Q"; } else { representer = "q"; }
     }
-    public int[][] getValidMovements(){ return null; }
-    public boolean ifValidMovement( int row, int column){ return false; }
 }
 
 class King extends Figure {
@@ -127,8 +115,6 @@ class King extends Figure {
         super(ownerTable, KING, side, row, column);
         if( side == WHITE){ representer = "K"; } else { representer = "q"; }
     }
-    public int[][] getValidMovements(){ return null; }
-    public boolean ifValidMovement( int row, int column){ return false; }
     public boolean ifInCheck(){ return false;}
     public boolean ifCheckMate(){return false;}
 }
