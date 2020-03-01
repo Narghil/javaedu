@@ -53,8 +53,8 @@ public abstract class Figure {
         setCoordinates(row, column);
     }
 
-    public int[][] getValidMovements(){return null;};
-    public boolean ifValidMovement( int row, int column){return false;};
+    public int[][] getValidMovements(){return null;}
+    public boolean ifValidMovement( int row, int column){return false;}
 }
 
 class NoFigure extends Figure {
@@ -113,7 +113,7 @@ class Queen extends Figure {
 class King extends Figure {
     public King(Table ownerTable, int side, int row, int column) {
         super(ownerTable, KING, side, row, column);
-        if( side == WHITE){ representer = "K"; } else { representer = "q"; }
+        if( side == WHITE){ representer = "K"; } else { representer = "k"; }
     }
     public boolean ifInCheck(){ return false;}
     public boolean ifCheckMate(){return false;}
