@@ -86,3 +86,12 @@ Collections
         Map myConfigs = new HashMap();    //A kulcsoknak egyedieknek kell lennie. A konkrét típusuk lehet más, mivel mind Object.
             //De erre is van lehetőség, pl: Map<String,Integer>
 
+- Saját objektumainkban szükséges, ha kollekciókban akarjuk használni:
+    - toString() //Csak ajánlott
+    - equals( Object o)
+    - int hashCode()
+    - java.lang.Comparable-ből: compareTo( Object o);
+        result:
+            0: egyenlőek; vagy a típus nem ugyanaz.
+            1: this > other
+            -1: this < other
