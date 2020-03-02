@@ -64,3 +64,8 @@ HAS-A: Composition: Circle has-a Color: Van Color adattagja;
 Scope: "fókusz"; láthatósági kör.
 Scenario: "((színházi) szín"; adott eseménysorozat.
 
+Design Pattern = tervezési minta: Jól bevált programozási módszer. PL:
+- Singleton
+- factory
+- decorator
+- observer
