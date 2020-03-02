@@ -16,7 +16,6 @@ public abstract class Figure {
         }
     }
 
-    protected Table ownerTable;
     protected int side, figureType, row, column, steps;
     protected String representer;
     protected Direction[] movementPattern;
@@ -46,8 +45,7 @@ public abstract class Figure {
         System.out.print(this.representer);
     }
 
-    public Figure(Table ownerTable, int side, int figureType, int row, int column) {
-        this.ownerTable = ownerTable;
+    public Figure(int side, int figureType, int row, int column) {
         this.figureType = figureType;
         this.side = side;
         this.steps = 0;
@@ -58,22 +56,19 @@ public abstract class Figure {
         return null;
     }
 
-    public boolean ifValidMovement(int row, int column) {
-        return false;
-    }
 }
 
 class NoFigure extends Figure {
-    public NoFigure(Table ownerTable, int row, int column) {
-        super(ownerTable, NOFIGURE, NOSIDE, row, column);
+    public NoFigure(int row, int column) {
+        super(NOFIGURE, NOSIDE, row, column);
         this.representer = " ";
         movementPattern = new Direction[0];
     }
 }
 
 class Pawn extends Figure {
-    public Pawn(Table ownerTable, int side, int row, int column) {
-        super(ownerTable, PAWN, side, row, column);
+    public Pawn(int side, int row, int column) {
+        super(PAWN, side, row, column);
         if (side == WHITE) {
             representer = "P";
         } else {
@@ -95,8 +90,8 @@ class Pawn extends Figure {
 }
 
 class Knight extends Figure {
-    public Knight(Table ownerTable, int side, int row, int column) {
-        super(ownerTable, KNIGHT, side, row, column);
+    public Knight(int side, int row, int column) {
+        super(KNIGHT, side, row, column);
         //K for King. N for the (K)Night
         if (side == WHITE) {
             representer = "N";
@@ -107,8 +102,8 @@ class Knight extends Figure {
 }
 
 class Bishop extends Figure {
-    public Bishop(Table ownerTable, int side, int row, int column) {
-        super(ownerTable, BISHOP, side, row, column);
+    public Bishop(int side, int row, int column) {
+        super(BISHOP, side, row, column);
         if (side == WHITE) {
             representer = "B";
         } else {
@@ -118,8 +113,8 @@ class Bishop extends Figure {
 }
 
 class Rook extends Figure {
-    public Rook(Table ownerTable, int side, int row, int column) {
-        super(ownerTable, ROOK, side, row, column);
+    public Rook(int side, int row, int column) {
+        super(ROOK, side, row, column);
         if (side == WHITE) {
             representer = "R";
         } else {
@@ -129,8 +124,8 @@ class Rook extends Figure {
 }
 
 class Queen extends Figure {
-    public Queen(Table ownerTable, int side, int row, int column) {
-        super(ownerTable, QUEEN, side, row, column);
+    public Queen(int side, int row, int column) {
+        super(QUEEN, side, row, column);
         if (side == WHITE) {
             representer = "Q";
         } else {
@@ -140,20 +135,12 @@ class Queen extends Figure {
 }
 
 class King extends Figure {
-    public King(Table ownerTable, int side, int row, int column) {
-        super(ownerTable, KING, side, row, column);
+    public King(int side, int row, int column) {
+        super(KING, side, row, column);
         if (side == WHITE) {
             representer = "K";
         } else {
             representer = "k";
         }
-    }
-
-    public boolean ifInCheck() {
-        return false;
-    }
-
-    public boolean ifCheckMate() {
-        return false;
     }
 }

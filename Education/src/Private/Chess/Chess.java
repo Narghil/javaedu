@@ -2,7 +2,7 @@ package Private.Chess;
 
 public class Chess {
 
-    public static void game(){
+    public static void game() {
         Table table = new Table();
         table.drawTable();
     }
