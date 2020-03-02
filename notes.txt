@@ -57,15 +57,32 @@ Interface:
 - pl: Class Circle extends Shape implements Drawable, Colorable, Runable { ... }
 - Külön .java állományokban helyezzük el őket. Nem classon belüli rész.
 - Interface lehet üres is: Marker interface. Azonos alakúságot biztosítanak vele.
+- Az interface mögött cserélhető az implementáció! Pl:
 
 IS-A : Circle is-a Shape: Class Circle extends Shape;
 HAS-A: Composition: Circle has-a Color: Van Color adattagja;
 
 Scope: "fókusz"; láthatósági kör.
-Scenario: "((színházi) szín"; adott eseménysorozat.
+Scenario: "(színházi) szín"; adott eseménysorozat.
 
 Design Pattern = tervezési minta: Jól bevált programozási módszer. PL:
 - Singleton
 - factory
 - decorator
 - observer
+
+Collections
+- primitív adattípusokat nem lehet beletenni. Illetve de, csak mégsem: AutoBoxing és AutoUnboxing;
+- Az elemek konkrét típusa bármi lehet, különböző is; mivel mind Object;
+- Három fő típusuk van:
+    - listák:
+        (ordered list / managed list)
+    - setek (halmazok): Csak duplikálatlan elemek lehetnek benne. Típus is számít! (nem "==" hanem "===" szerint)
+    - map-ek (kulcs-érték párok)
+- Az interface mögött cserélhető az implementáció! Pl:
+        List myNumbers = new ArrayList(); //ArrayList implements List;
+        List myNumbers = new LinkedList();//LinkedList implements List;
+        Set myPersons = new HashSet();   //
+        Map myConfigs = new HashMap();    //A kulcsoknak egyedieknek kell lennie. A konkrét típusuk lehet más, mivel mind Object.
+            //De erre is van lehetőség, pl: Map<String,Integer>
+
