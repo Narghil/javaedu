@@ -46,7 +46,7 @@ Futásidejű típus: A deklarált típusú változó leszármazott típusú ért
 Futásidejű típus metódusai csak castolással hívhatók meg.
 
 Final Class: Nem leszármaztatható osztály.
-abstract class: Nem példányosítható osztály. Lehetnek, sőt jellemzően vannak abstract metódusai is.
+Abstract class: Nem példányosítható osztály. Lehetnek, sőt jellemzően vannak abstract metódusai is.
 Az abstract metódusnak nincs blokkja!
 Az abstract class leszármazottjának vagy implementálnia kell az abstract metódust, vagy szintén deklarálnia kell
 abstractként.
