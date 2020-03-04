@@ -90,8 +90,14 @@ Collections
     - toString() //Csak ajánlott
     - equals( Object o)
     - int hashCode()
-    - java.lang.Comparable-ből: compareTo( Object o);
+    - compareTo( Object o) [A java.lang.Comparable interface-ből] ;
         result:
             0: egyenlőek; vagy a típus nem ugyanaz.
             1: this > other
             -1: this < other
+
+- "Gang of Four":Design Patterns c. könyv (tervezési minták, nyelvfüggetlen módon)
+- "Pattern favor":"Minta-láz" : Patternek túlzott használata.
+
+Rekurzió:
+- Rekurzív metódusnak legyen menekülőútja.
