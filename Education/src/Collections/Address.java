@@ -1,5 +1,5 @@
 //Gyakorlás a setekkel
-package Basics;
+package Collections;
 
 import java.util.*;
 

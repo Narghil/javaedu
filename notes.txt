@@ -101,3 +101,42 @@ Collections
 
 Rekurzió:
 - Rekurzív metódusnak legyen menekülőútja.
+
+Listán használható az index szerinti elérés, pl:
+- Object o = list.get( i ); //list : ArrayList;
+- Object o = map.get( key );//map: HashMap;
+Ciklikus elérés:
+- for( Object o: myList ){}
+- for( int i = 0; i < myList.size(); i++ ){  ... myList.get(i) ... }
+- ITERATOR design pattern:
+    - boolean hasNext()
+    - Object next()
+    - pl:
+        Iterator it = myList.iterator();
+        while( it.hasNext() ){
+            Object o = next();
+        }
+    - pl:
+        for( Iterator it = myList.iterator(); it.hasNext; ){
+            Object o = it.next();
+        }
+
+Enum típus:
+- abstract osztály
+- Pl:
+    enum HetNapjai{ HETFO, KEDD, ... , VASARNAP ; }
+    ...
+    HetNapjai toDay = HetNapjai.SZERDA;
+
+    enum HetNapjai{ HETFO(true), KEDD(true), ... , VASARNAP(fals) ;
+        private boolean munkanap;
+        Hetnapjai( boolean b ){
+            munkanap = b;
+        }
+
+        public String toString){
+            ...
+        }
+    }
+- values(), name(), ordinal()
+
