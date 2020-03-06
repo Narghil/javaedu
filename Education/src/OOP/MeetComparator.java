@@ -45,6 +45,15 @@ public class MeetComparator {
     }
 }
 
+class compareByHeight implements Comparator {
+    @Override
+    public int compare(Object o1, Object o2) {
+        Player p1 = (Player) o1;
+        Player p2 = (Player) o2;
+        return Integer.valueOf(p1.getHeight()).compareTo(p2.getHeight());
+    }
+}
+
 class Player implements Comparable {
 
     private String name;
@@ -136,11 +145,4 @@ class Player implements Comparable {
 
 }
 
-class compareByHeight implements Comparator {
-    @Override
-    public int compare(Object o1, Object o2) {
-        Player p1 = (Player) o1;
-        Player p2 = (Player) o2;
-        return Integer.valueOf(p1.getHeight()).compareTo(p2.getHeight());
-    }
-}
+

@@ -18,5 +18,6 @@ public class Dog {
 
         System.out.println(dog/*Enélkül is működik; a fordító megkeresi az alapértelmezett,
         Stringet visszaadó fn-t: .toString() */);
+
     }
 }

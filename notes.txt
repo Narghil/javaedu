@@ -90,7 +90,8 @@ Collections
     - toString() //Csak ajánlott
     - equals( Object o)
     - int hashCode()
-    - compareTo( Object o) [A java.lang.Comparable interface-ből] ;
+    A java.lang.Comparable interface-ből:
+    - compareTo( Object o)  ;
         result:
             0: egyenlőek; vagy a típus nem ugyanaz.
             1: this > other
@@ -122,21 +123,83 @@ Ciklikus elérés:
         }
 
 Enum típus:
-- abstract osztály
+- abstract osztályból származik
 - Pl:
     enum HetNapjai{ HETFO, KEDD, ... , VASARNAP ; }
     ...
     HetNapjai toDay = HetNapjai.SZERDA;
 
-    enum HetNapjai{ HETFO(true), KEDD(true), ... , VASARNAP(fals) ;
+    enum HetNapjai{
+        HETFO(true), KEDD(true), ... , VASARNAP(fals) ;
+
         private boolean munkanap;
+
+        //Konstruktor - enum esetében mindig private
         Hetnapjai( boolean b ){
             munkanap = b;
         }
-
         public String toString){
             ...
         }
     }
-- values(), name(), ordinal()
 
+- values() [tömbben visszaadja az enum elemeit], name(), ordinal()
+
+TERVEZÉSI MINTÁK (Design Patterns)
+----------------------------------
+Wiki: "GoF alapelvek"
+Irodalom:
+    - GoF: Design Patterns (C,C++; 1999)
+    - Head First: Design Patterns  (A Brain-Friendly Guide) (Java)
+
+Alapelvek (egy pár):
+- Laza csatolás az objektumok között
+- Interface-ek használata
+- Class, method ne legyen túl nagy
+- Az osztály legyen bővítésre nyitott, módosításra zárt.
+- "Csak a barátaiddal beszélgess!" (Pl.: Library.)
+- "Hollywood principle: don't call us, we will call you." (Pl.: Observer Pattern: Observer vs. Observable classes.)
+
+
+Ellenpéldák:
+- AntiPattern
+- God Object
+
+Típusai (pl.):
+--------------
+- Singleton: Ld. feljebb.
+- Decorator:
+    abstract class Drink ...
+    class Coffee extends Drink ...
+        private Drink decor
+
+    class Milk extends Drink ...
+        private Drink decor
+
+    class Whip extends Drink ...
+        private Drink decor
+
+    //Eggy eszpresszó, dupla tejjel és tejszínhabbal!
+    Drink Coffee = new Whip( new Milk( new Milk( new Espresso() ) ) );
+
+    - Hagymahéj-szerű felépítés
+    - pipeline-szerű feldolgozási sor, a "magból" "kifelé"
+    - Pl.: java.io
+        FileInputStream "feldekorálása" intelligensebb értelmezőkkel.
+
+- Chain of Responsibility ("Illetékességi sor"):
+    abstract class Handler ...
+        private Handler nextHandler ...
+        abstract void handle( ) ...
+            Pl.: ... if( ... instanceOf ... ) ...
+
+KIVÉTELKEZELÉS:
+---------------
+- ősosztály: java.lang.Throwable
+    -> Exception
+    -> RuntimeException
+        - Checked : try-catch -el kezelhető.
+        - UnChecked : Crash/Abort
+    -> Error
+- try{} catch() {} finally { ... ez mindenképpen lefut, akkor is, ha nem volt hiba a try blokkban ... }
+    ... throw new UnsupportedOperationException("majd megírom"); ...
