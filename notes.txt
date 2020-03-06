@@ -203,3 +203,4 @@ KIVÉTELKEZELÉS:
     -> Error
 - try{} catch() {} finally { ... ez mindenképpen lefut, akkor is, ha nem volt hiba a try blokkban ... }
     ... throw new UnsupportedOperationException("majd megírom"); ...
+    Exception.printStackTrace();
