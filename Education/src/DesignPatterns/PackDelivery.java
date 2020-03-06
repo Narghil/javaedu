@@ -38,21 +38,18 @@ interface PackHandler {
 class Pack {
     private String id;
     private String to;
+    private List stamps = new ArrayList();
 
     public List getStamps() {
         return stamps;
     }
-
-    private List stamps = new ArrayList();
-
     public void addStamp(String stamp) {
         stamps.add(stamp + " ");
     }
-
     public String getTo() {
         return to;
     }
-
+    //Constructor
     public Pack(String id, String to) {
         this.id = id;
         this.to = to;
@@ -60,13 +57,12 @@ class Pack {
 }
 
 class City implements PackHandler {
-    public void setNextCity(City nextCity) {
-        this.nextCity = nextCity;
-    }
-
     private City nextCity;
     private String name;
 
+    public void setNextCity(City nextCity) {
+        this.nextCity = nextCity;
+    }
     public void handle(Pack pack) {
         pack.addStamp(this.name);
         if (pack.getTo() != this.name) {
