@@ -8,26 +8,28 @@ public class PackDelivery {
 
     public static void main(String[] args) {
         List cityNames = Arrays.asList("Szeged", "Pecs", "Komarom", "Miskolc", "Debrecen", "Gyor");
-        Set cityes = new HashSet();
+        //Set cityes = new HashSet();
         City prevCity = null, actCity = null, firstCity = null;
-        Pack pack = new Pack("A001", "Budapest");
+
+        Pack pack1 = new Pack("A001", "Budapest");
+        Pack pack2 = new Pack("A002", "Debrecen");
+        Pack pack3 = new Pack("A003", "Komarom");
 
         Collections.shuffle(cityNames);
+        prevCity = null;
         Iterator it = cityNames.iterator();
         while (it.hasNext()) {
-            actCity = new City(it.next().toString());
-            cityes.add(actCity);
-            if (prevCity != null) {
-                prevCity.setNextCity(actCity);
-            } else {
-                firstCity = actCity;
-            }
+            actCity = new City(it.next().toString(), prevCity);
+            //cityes.add(actCity);
             prevCity = actCity;
         }
-        firstCity.handle(pack);
         cls();
-        System.out.println(pack.getStamps());
-
+        actCity.handle(pack1);
+        System.out.println(pack1.getStamps());
+        actCity.handle(pack2);
+        System.out.println(pack2.getStamps());
+        actCity.handle(pack3);
+        System.out.println(pack3.getStamps());
     }
 }
 
@@ -60,9 +62,6 @@ class City implements PackHandler {
     private City nextCity;
     private String name;
 
-    public void setNextCity(City nextCity) {
-        this.nextCity = nextCity;
-    }
     public void handle(Pack pack) {
         pack.addStamp(this.name);
         if (pack.getTo() != this.name) {
@@ -76,9 +75,9 @@ class City implements PackHandler {
         }
     }
 
-    public City(String name) {
+    public City(String name, City nextCity) {
         this.name = name;
-        this.nextCity = null;
+        this.nextCity = nextCity;
     }
 }
 
