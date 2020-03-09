@@ -197,10 +197,87 @@ KIVÉTELKEZELÉS:
 ---------------
 - ősosztály: java.lang.Throwable
     -> Exception
-    -> RuntimeException
         - Checked : try-catch -el kezelhető.
         - UnChecked : Crash/Abort
+    -> RuntimeException
+        - nem kell try-catch kezelésbe tenni, mert nem ellenőrzött kivétel.
     -> Error
 - try{} catch() {} finally { ... ez mindenképpen lefut, akkor is, ha nem volt hiba a try blokkban ... }
     ... throw new UnsupportedOperationException("majd megírom"); ...
     Exception.printStackTrace();
+
+GENERICS:
+---------
+pld:
+    List numbers = Arrays.asList( 1,3,5,7,9 );
+    for( Object o:numbers ){
+        Integer iObj = (Integer)o;
+    }
+
+    Ehelyett:
+
+    List<Integer> numbers = Arrays.asList( ... );
+    for( Integer i: numbers ){
+        ...
+    }
+
+    "<...>" : TÍPUSPARAMÉTER
+
+    List<Integer> numbers = new ArrayList<Integer>();
+    List<Integer> numbers = new ArrayList<>();
+    List<Integer> numbers = new ArrayList();
+
+    Implicit típusparaméter az "<Object>". ;)
+
+    Map-ek esetében:
+        Map<Integer,Double> map = new HashMap<>;
+
+        map.put( i, d );
+        map.get( ... ); => a kulcsot a get() nem ellenőriz generics-re. Helytelen típus esetén NULL-t ad vissza.
+
+További haszon:
+    class Node<T[,...]>{
+
+        public Node(Object o, T next){
+
+        }
+
+        public T calculate(){}
+
+    }
+    //A "T" tetszőleges, sőt, ismeretlen class, de mindig ugyanaz a hivatkozó classon belül!
+
+    main(){
+        Node<String> n1 = new Node( new Object(), "Valami" );
+        Node<Integer> n2 = new Node( new Object(), 1 );
+
+    }
+
+    class< T extends Valami > ...
+    //Valami lehet class vagy interface is
+
+DÁTUMOK:
+--------
+JAVA 8 előtt:
+("@Deprecated" - elavult, kivezetés alatt.)
+- java.util.Date
+    A dátumot egy long érték, a unix timestamp reprezentálja, 1970.01.01 00:00:00.001-tól kezdve.
+    PL:
+        Date now = new Date();
+        now.getTime();
+        sout(now);
+
+- java.util.Calendar
+    - abstract osztály. Egyik leszármazottja a GregorianCalendar.
+    - Calendar cal = Calendar.getIstance() : A gép op.rendszere szerinti kalendáriumot adja vissza.
+    - cal.getTime(); => Date
+    - cal.getTimeInMillis(); => Long
+
+JAVA 8 óta:
+- Date and Time API
+
+
+
+
+
+
