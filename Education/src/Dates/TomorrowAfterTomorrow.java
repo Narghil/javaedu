@@ -7,7 +7,7 @@ import java.util.Locale;
 public class TomorrowAfterTomorrow {
 
     public static void main(String[] args) {
-        Long oneDay = (24*60*60*1000l);
+        Long oneDay = (24L*60*60*1000);
         Date today = new Date();
         Date tomorrow = new Date(today.getTime() + oneDay);
         Date afterTomorrow = new Date( today.getTime() + oneDay * 2);
