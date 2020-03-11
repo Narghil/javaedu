@@ -72,6 +72,7 @@ Design Pattern = tervezési minta: Jól bevált programozási módszer. PL:
 - observer
 
 Collections
+-----------
 - primitív adattípusokat nem lehet beletenni. Illetve de, csak mégsem: AutoBoxing és AutoUnboxing;
 - Az elemek konkrét típusa bármi lehet, különböző is; mivel mind Object;
 - Három fő típusuk van:
@@ -276,6 +277,62 @@ JAVA 8 előtt:
 JAVA 8 óta:
 - Date and Time API
 
+- java.text:
+    DateFormat abstract class => SimpleDateFormat;
+    - format()
+    - parse()
+
+"i18n" - internationalisation   = "nemzetköziestítés"
+"l10n" - localisation           = "lokálissá tétel"
+
+ZH konzekvenciák:
+-----------------
+- Az Interface nem abstract class, hanem nyelvi konstrukció.
+- Primitív adattípusok: int, byte, short, boolean, double, char + long, float
+- Hozzáférés-módosítók: public, private, protected + [default:"package private"]
+- constructor: osztályt példányosító metódus.
+- 3 fő collection framework: List, Set, Map - ezek Interface-ek!
+
+Interface extendálhat de NEM implementálhat másik Interface-t!
+
+SZERIALIZÁCIÓ:
+--------------
+java.lang.Serializable - MARKER interface
+"flatten" - "laposítás": byte tömb készítése az objektumból.
+Az objektum pillanatnyi állapotának "lefagyasztása", általában kimentés, és későbbi visszatöltés, azaz DESZERIALIZÁCIÓ
+   céljából.
+
+RMI - Remote Method Invocation
+RMI-IIOP: A Corba JAVA-s megfelelője.
+
+Serializable példány csak akkor szerializálható, ha minden adattagja is szintén serializable.
+
+I/O:
+----
+java.io
+- nagy része Decorator Pattern szerinti felépítésű.
+- ObjectOutputStream.writeObject() : Szerializál.  => void
+- ObjectInputStream.readObject()  : Deszerializál. => Object
+
+...
+FileOutputStream fs = new FileOutputStream("mentettpeldaany.ser");
+ObjectOutputStream oos = new ObjectOutputStream( fs );
+oos.writeObject( person );
+oos.close();
+...
+
+long SerialVersionUID - minden oszztályban benne lévő property. Teszteléshez érdemes "befagyasztani", azaz a kódban megadni.
+    (private static final long SerialVersionUID = ...;)
+    Settings: Editor > Inspections > JAVA > Serialization Issues > Serializable class without... - bepipálni.
+
+transient property: kiveszi a property-t a szerializációból.
+
+--------------------------------------
+
+...Reader - ...Writer
+...InputStream - ...OutputStream
+
+"File" - csak elérési utat reprezentál.
 
 
 

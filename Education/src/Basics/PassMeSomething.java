@@ -32,6 +32,9 @@ public class PassMeSomething {
 
     // Ebben a metodusban az atvett objektum referencia altal mutataott StringBuilder peldany belso allapotat piszkaljuk el.
     // Uj peldany nem jon letre, az a peldany, aminek modositjuk az allapotat ugyanaz, mint a main()-beli peldany.
+
+    //DE EZ CLASSON BELÜL VAN!!! MI A HELYZET CLASSOK KÖZÖTT?! (STATIC ÉS NEM STATIC IS!)
+
     static void passMeObject2(StringBuilder refCopy) {
         refCopy.append(" George");
         System.out.println("sb in method: " + refCopy);
