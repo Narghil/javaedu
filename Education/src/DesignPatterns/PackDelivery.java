@@ -35,6 +35,9 @@ public class PackDelivery {
 
 interface PackHandler {
     void handle(Pack pack);
+    //Interface tartalmazhat konstanst!
+    Integer inInt0 = 0;
+    Integer inInt1 = 1;
 }
 
 class Pack {
@@ -69,9 +72,11 @@ class City implements PackHandler {
                 nextCity.handle(pack);
             } else {
                 pack.addStamp(" ismeretlen cím");
+                System.out.println(inInt0);
             }
         } else {
             pack.addStamp(" megérkezett.");
+            System.out.println(inInt1);
         }
     }
 
