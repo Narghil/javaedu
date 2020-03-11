@@ -16,6 +16,19 @@ public class PassMeSomething {
         System.out.println("sb in main() BEFORE method call: " + sb);
         passMeObject2(sb);
         System.out.println("sb in main() AFTER method call: " + sb);
+
+        Reciever r = new Reciever();
+        Integer i;
+        i = 0;
+        r.passMeObj1(i);
+        System.out.println("Reciever:"+i);
+
+        PassObj po = new PassObj();
+        po.setSb("Before passing...");
+        r.passMeObj2(po);
+        System.out.println(po.getSb());
+
+
     }
 
     static void passMePrimitive(byte b) {
@@ -38,5 +51,28 @@ public class PassMeSomething {
     static void passMeObject2(StringBuilder refCopy) {
         refCopy.append(" George");
         System.out.println("sb in method: " + refCopy);
+    }
+
+    static class PassObj{
+        String sb;
+
+        public String getSb() {
+            return sb;
+        }
+
+        public void setSb(String sb) {
+            this.sb = sb;
+        }
+    }
+
+    static class Reciever{
+        void passMeObj1( Integer refInt ){
+            refInt = -101;
+        }
+
+        void passMeObj2( PassObj refObj){
+            refObj.setSb( "Passed Object");
+        }
+
     }
 }
