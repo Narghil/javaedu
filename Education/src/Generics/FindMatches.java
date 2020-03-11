@@ -13,6 +13,12 @@ public class FindMatches {
         System.out.println(Arrays.toString(stringArray)+"/Joan:" + finder.occurances( stringArray, "Joan"));
         System.out.println(Arrays.toString(integerArray)+"/3:"+ + finder.occurances(integerArray, 3));
 
+        Excer1 e1 = new Excer1();
+        e1.doSomeThing();
+
+        Excer2 e2 = new Excer2();
+        e2.doSomeThing();
+
     }
 }
 
@@ -29,4 +35,32 @@ class Finder<T> {
 
         return i;
     }
+
 }
+
+interface Excersizeable{
+    void doSomeThing();
+    //void doOtherThing();
+    Integer aVariable = 11;
+
+    class kinkyClass{
+        private Integer bVar;
+        protected void printSomeThing(){
+            bVar = aVariable;
+            System.out.println("Kinky Class Says:"+bVar+1);
+        }
+    }
+
+}
+
+class Excer1 implements Excersizeable {
+    public void doSomeThing(){
+        Excersizeable.kinkyClass kc = new Excersizeable.kinkyClass();
+        kc.printSomeThing();
+    }
+}
+
+class Excer2 extends Excer1{
+
+}
+
