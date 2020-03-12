@@ -5,7 +5,7 @@ import PG.Utils.IOUtils;
 import java.io.Serializable;
 
 class SerObj implements Serializable {
-    private static long SerialVersionUID = -1L;
+    private static final long serialVersionUID = -8388655430465083693L;
     private String someThing = "Empty";
 
     public String getSomeThing() {
@@ -21,7 +21,7 @@ public class Serialize {
     public static void main(String[] args) {
         SerObj thingOut = new SerObj();
         SerObj thingIn; // = new IOObject();
-        IOUtils<SerObj, SerObj> iou = new IOUtils();
+        IOUtils<SerObj, SerObj> iou = new IOUtils<>();
         int iErr = -1;
 
         thingOut.setSomeThing("I am an Serializable object");
