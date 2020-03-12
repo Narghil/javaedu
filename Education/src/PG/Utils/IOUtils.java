@@ -72,7 +72,10 @@ public class IOUtils<S, G> {
         return res;
     }
 
-    //*** Server-Client connection via sockets *****************************************************************
+    //*** Server-Client connection via sockets ************************************
+    //*** Ebben a formában csak egy clienst tud a server egy időben kiszolgálni ***
+    //*** Példa a többszálú kiszolgálásra:
+    //*** https://stackoverflow.com/questions/10131377/socket-programming-multiple-client-to-one-server
 
     public Socket getClientSocket() {
         return clientSocket;

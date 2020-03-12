@@ -17,17 +17,10 @@ public class PassMeSomething {
         passMeObject2(sb);
         System.out.println("sb in main() AFTER method call: " + sb);
 
-        Reciever r = new Reciever();
-        Integer i;
-        i = 0;
-        r.passMeObj1(i);
-        System.out.println("Reciever:"+i);
-
-        PassObj po = new PassObj();
-        po.setSb("Before passing...");
-        r.passMeObj2(po);
-        System.out.println(po.getSb());
-
+        String str = new String("Hello");
+        System.out.println("str in main() BEFORE method call: " + str);
+        passMeString(str);
+        System.out.println("str in main() AFTER method call: " + str);
 
     }
 
@@ -53,26 +46,9 @@ public class PassMeSomething {
         System.out.println("sb in method: " + refCopy);
     }
 
-    static class PassObj{
-        String sb;
-
-        public String getSb() {
-            return sb;
-        }
-
-        public void setSb(String sb) {
-            this.sb = sb;
-        }
+    static void passMeString(String refCopy) {
+        refCopy = refCopy + " passed ";
+        System.out.println("str in method: " + refCopy);
     }
 
-    static class Reciever{
-        void passMeObj1( Integer refInt ){
-            refInt = -101;
-        }
-
-        void passMeObj2( PassObj refObj){
-            refObj.setSb( "Passed Object");
-        }
-
-    }
 }
