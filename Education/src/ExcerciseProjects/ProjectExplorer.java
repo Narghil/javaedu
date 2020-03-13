@@ -8,8 +8,10 @@ import static PG.Utils.StringUtils.replicate;
 
 public class ProjectExplorer {
     public static void main(String[] args) {
-        sopl("START HERE:" + "C:/javaedu");
-        printDir(0,new File("C:/javaedu") );
+        String param;
+        if( args.length ==0){ param = "."; } else {param = args[0];}
+        sopl("START HERE:" + param);
+        printDir(0,new File(param) );
     }
 
     public static void printDir( int depth, File parFile ){
@@ -17,7 +19,7 @@ public class ProjectExplorer {
 
         fileNames = parFile.list();
         if( fileNames == null){
-            return;
+            //return;
         } else {
             for (String fName: fileNames ) {
                 File f = new File( parFile.getAbsolutePath(), fName );
