@@ -8,6 +8,14 @@ import java.net.Socket;
 import java.lang.Class;
 
 public class IOUtils<S, G> {
+
+    public static void sopl(String s){
+        System.out.println(s);
+    }
+    public static void sop(String s){
+        System.out.print(s);
+    }
+
     //<S> as Send, <G> as Get
     private Socket clientSocket;
     private Socket serverClientSocket; //Ebből több is lehet... szerintem.

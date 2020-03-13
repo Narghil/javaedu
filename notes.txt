@@ -279,7 +279,7 @@ JAVA 8 óta:
 
 - java.text:
     DateFormat abstract class => SimpleDateFormat;
-    - format()
+    - format()  //"format specifiers" a pattern-ben.
     - parse()
 
 "i18n" - internationalisation   = "nemzetköziestítés"
@@ -315,8 +315,10 @@ java.io
 - ObjectInputStream.readObject()  : Deszerializál. => Object
 
 ...
+Szerializálás (pld.)
+--------------------
 FileOutputStream fs = new FileOutputStream("mentettpeldaany.ser");
-ObjectOutputStream oos = new ObjectOutputStream( fs );
+ObjectOutputStream oos = new ObjectOutputStream( fs );  //Konkrétan szerializálást végez.
 oos.writeObject( person );
 oos.close();
 ...
