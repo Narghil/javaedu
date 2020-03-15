@@ -1,11 +1,12 @@
+//Csak kódtárnak hagyom meg; Server-1 db client példa. + SOPL, SOP rutinok miatt.
 package PG.Utils;
 
+/*
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-//*** import java.util.LinkedList;
-//*** import java.util.List;
 import java.lang.Class;
+ */
 
 public class IOUtils<S, G> {
 
@@ -15,7 +16,7 @@ public class IOUtils<S, G> {
     public static void sop(String s){
         System.out.print(s);
     }
-
+/*
     //<S> as Send, <G> as Get
     private Socket clientSocket;
     private Socket serverClientSocket; //Ebből több is lehet... szerintem.
@@ -27,57 +28,6 @@ public class IOUtils<S, G> {
         serverServerSocket = null;
         serverClientSocket = null;
         clientSocket = null;
-    }
-
-    //Szerializálás:
-    public void SerOut(S s, String fname) {
-        FileOutputStream fso;
-        ObjectOutputStream oos = null;
-
-        try {
-            fso = new FileOutputStream(fname);
-            oos = new ObjectOutputStream(fso);
-            oos.writeObject(s);
-            oos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (oos != null) {
-                    oos.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //Deszerializálás:
-    public G SerInp(String fname) {
-        FileInputStream fsi;
-        ObjectInputStream ois = null;
-        G res = null;
-        Object o;
-
-        try {
-            fsi = new FileInputStream(fname);
-            ois = new ObjectInputStream(fsi);
-            o = ois.readObject();
-            //if (o instanceof G) {
-                res = (G) o;
-            //}
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (ois != null) {
-                    ois.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return res;
     }
 
     //*** Server-Client connection via sockets ************************************
@@ -204,5 +154,5 @@ public class IOUtils<S, G> {
         }
 
     }
-
+*/
 }
