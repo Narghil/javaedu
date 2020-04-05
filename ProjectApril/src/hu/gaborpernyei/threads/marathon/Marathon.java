@@ -66,7 +66,10 @@ public class Marathon implements Runnable, WaitingAble {
             threads[i].start();
         }
         //3 másodperc késleltetés...
-        doSleep( (long)3000 );
+        if( ! doSleep( (long)3000 ) ){
+            return;
+        }
+        ;
         //Startjel kiadása...
         for (LongDistanceRunner ldr:runners ) {
             ldr.setBoolRaceStarted( true );
@@ -98,7 +101,7 @@ class LongDistanceRunner implements Runnable, WaitingAble{
     private Double dblDistanceYet = dblWholeDistance; //Ennyit kell még lefutnia
     private Boolean boolRaceStarted = false;
     private final long timeStep = 1000;     //Másodpercenkénti aktivitás...
-    private final long timeMultiplier = 10; //1 másodperc valós idő a programban ennyi perc a futásban. A feladatleírás 1-et mond, én 10-et vettem, hogy ne őszüljek meg a végéig.
+    private final long timeMultiplier = 30; //1 másodperc valós idő a programban ennyi perc a futásban. A feladatleírás 1-et mond, én ennyit vettem, hogy ne őszüljek meg a végéig.
     private Double unitDistance;            //1p alatt ennyit halad a futó.
     private Marathon race;                  //Ezen a versenyen fut a futó.
 
