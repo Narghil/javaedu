@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Server<S, G> {
+public class Server<S,G>{
     //S: Send object type; G: Get object type
     private List<Socket> clientSocketList = new LinkedList<>(); //Ebből több is lehet... szerintem.
     private ServerSocket serverSocket;
@@ -53,7 +53,6 @@ public class Server<S, G> {
         }
         return res;
     }
-
     //Válasz küldése(server side);
     public void serverSend(S s, Socket clientSocket) {
 

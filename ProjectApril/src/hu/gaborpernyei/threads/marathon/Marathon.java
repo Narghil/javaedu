@@ -1,51 +1,97 @@
 package hu.gaborpernyei.threads.marathon;
 
 import java.util.Random;
-
 import static java.lang.Thread.sleep;
 
-public class Marathon {
+//A wait(), sleep(), notify(), notifyAll() hívásokat kiszerveztem egy külön interface-be.
+interface WaitingAble {
+    default boolean doWait( Runnable r ){
+        //A wait() csak synchronised objektumra adható ki, különben: IllegalMonitorException -t dob!
+        synchronized( r ){
+            try{
+                r.wait();
+            } catch( InterruptedException e){
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    default boolean doSleep( Long millis){
+        try {
+            Thread.currentThread().sleep( millis );
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    //A notifyAll()/notify()) csak synchronised objektumra adható ki, különben: IllegalMonitorException -t dob!
+    //Konkrétan arra az objektumra kell kiadni a notyfy()/notifyAll()-t, amelyiket fel akarjuk ébreszteni.
+    //A notifyAll() -nak akkor van értelme, ha ugyanannak az objektumnak több szála is várakozik.
+    //ld: https://www.geeksforgeeks.org/difference-notify-notifyall-java/
+    default void doNotify( Runnable r){
+        synchronized (r ) {
+            r.notify();
+        }
+    }
+    default void doNotifyAll( Runnable r){
+        synchronized (r ) {
+            r.notifyAll();
+        }
+    }
+}
+
+public class Marathon implements Runnable, WaitingAble {
     public static void main(String[] args) {
         //Ez azért kell, mert a notify()/notifyAll() nem adható ki statikus metódusból-ból.
+        //marathon.doIt();
         Marathon marathon = new Marathon();
-        marathon.doIt();
+        Thread mainThread = new Thread(marathon);
+        mainThread.start();
     }
 
     LongDistanceRunner[] runners = new LongDistanceRunner[5];
     Thread[] threads = new Thread[5];
     Random rnd = new Random();
+    private Boolean boolRaceEnded = false; //Befejeződött-e a verseny?
 
-    public void doIt() {
+    //public void doIt() {
+    public void run(){
         for (int i = 0; i < 5; i++) {
-            runners[i] = new LongDistanceRunner("Futó_" + (i+1), 8.0 + rnd.nextFloat() * 18); //Sebesség 8 és 26 között legyen.
+            runners[i] = new LongDistanceRunner(this, "Futó_" + (i+1), 8.0 + rnd.nextFloat() * 18); //Sebesség 8 és 26 között legyen.
             threads[i] = new Thread(runners[i]);
             threads[i].start();
         }
         //3 másodperc késleltetés...
-        try {
-            sleep( 3000 );
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return;
-        }
+        doSleep( (long)3000 );
         //Startjel kiadása...
-        for (int i = 0; i < 5; i++) {
-            runners[i].setBoolRaceStarted( true );
+        for (LongDistanceRunner ldr:runners ) {
+            ldr.setBoolRaceStarted( true );
         }
-        //A notifyAll()/notify()) csak synchronised objektumra adható ki, különben: IllegalMonitorException -t dob!
-        //Konkrétan arra az objektumra kell kiadni a notyfy()/notifyAll()-t, amelyiket fel akarjuk ébreszteni.
-        //A notifyAll() -nak akkor van értelme, ha ugyanannak az objektumnak több szála is várakozik.
-        //ld: https://www.geeksforgeeks.org/difference-notify-notifyall-java/
-        for (int i = 0; i < 5; i++) {
-            synchronized (runners[i]) {
-                runners[i].notify();
-            }
+        for (LongDistanceRunner ldr:runners ) {
+            doNotify(ldr);
         }
         System.out.println("A verseny elindult.");
+
+        //Ez nem volt a kiírásban, de így talán elegánsabb.
+        //Értesítést kapunk, ha egy futó célba ért. Ha mind célba ért, a versenynek vége
+        while( ! boolRaceEnded ) {
+            doWait(this);
+            boolRaceEnded = true;
+            for (LongDistanceRunner ldr : runners) {
+                synchronized( ldr ) {
+                    boolRaceEnded = boolRaceEnded && (ldr.getDblDistanceYet() <= 0.0d);
+                }
+            }
+        }
+        System.out.println("A verseny befejeződött.");
     }
 }
 
-class LongDistanceRunner implements Runnable{
+class LongDistanceRunner implements Runnable, WaitingAble{
     private String strName = "Anonymus";
     private Double dblSpeed = 0d;
     private final Double dblWholeDistance = 42.195d;  //A teljes táv
@@ -54,8 +100,10 @@ class LongDistanceRunner implements Runnable{
     private final long timeStep = 1000;     //Másodpercenkénti aktivitás...
     private final long timeMultiplier = 10; //1 másodperc valós idő a programban ennyi perc a futásban. A feladatleírás 1-et mond, én 10-et vettem, hogy ne őszüljek meg a végéig.
     private Double unitDistance;            //1p alatt ennyit halad a futó.
+    private Marathon race;                  //Ezen a versenyen fut a futó.
 
-    public LongDistanceRunner( String name, double kmPerH ){
+    public LongDistanceRunner( Marathon race, String name, double kmPerH ){
+        this.race = race;
         this.strName = name; this.dblSpeed = kmPerH;
         this.unitDistance = (kmPerH / 60.0d) * timeMultiplier;
     }
@@ -64,20 +112,18 @@ class LongDistanceRunner implements Runnable{
         this.boolRaceStarted = started;
     }
 
+    public Double getDblDistanceYet() {
+        return dblDistanceYet;
+    }
+
     @Override
     public void run() {
         System.out.println(strName + " a startra vár...");
         //A while valójában fölösleges, de ha több minden okból kiadásra kerülne a notify(), akkor vizsgálni kellene,
         // hogy a számunkra megfelelő változás megtörtént-e
         while( ! boolRaceStarted ) {
-            //A wait() csak synchronised objektumra adható ki, különben: IllegalMonitorException -t dob!
-            synchronized ( this ) {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    return;
-                }
+            if(! doWait( this )){
+                return;
             }
         }
         while( dblDistanceYet > 0 ){
@@ -93,5 +139,7 @@ class LongDistanceRunner implements Runnable{
             }
         }
         System.out.println(strName+" CÉLBA ÉRT!");
+        //Értesítjük a versenyt, mert a futó célba ért.
+        doNotify( race );
     }
 }
