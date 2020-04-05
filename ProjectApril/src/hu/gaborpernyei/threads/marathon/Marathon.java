@@ -20,7 +20,7 @@ interface WaitingAble {
 
     default boolean doSleep( Long millis){
         try {
-            Thread.currentThread().sleep( millis );
+            sleep( millis );
         } catch (InterruptedException e) {
             e.printStackTrace();
             return false;
