@@ -75,7 +75,7 @@ public class Marathon implements Runnable, WaitingAble {
             ldr.setBoolRaceStarted( true );
         }
         for (LongDistanceRunner ldr: ldrRunners) {
-            doNotify(ldr);
+            doNotifyAll(ldr);
         }
         System.out.println("A verseny elindult.");
 
