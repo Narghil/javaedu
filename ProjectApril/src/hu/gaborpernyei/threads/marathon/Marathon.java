@@ -61,7 +61,7 @@ public class Marathon implements Runnable, WaitingAble {
     //public void doIt() {
     public void run(){
         for (int i = 0; i < 5; i++) {
-            ldrRunners[i] = new LongDistanceRunner(this, "Futó_" + (i+1), 8.0 + rnd.nextFloat() * 18); //Sebesség 8 és 26 között legyen.
+            ldrRunners[i] = new LongDistanceRunner(this, "Futó_" + (i+1), 8.0 + rnd.nextFloat() * 18 ); //Sebesség 8 és 26 között legyen.
             threads[i] = new Thread(ldrRunners[i]);
             threads[i].start();
         }
@@ -143,6 +143,6 @@ class LongDistanceRunner implements Runnable, WaitingAble{
         }
         System.out.println(strName+" CÉLBA ÉRT!");
         //Értesítjük a versenyt, mert a futó célba ért.
-        doNotify( race );
+        doNotifyAll( race );
     }
 }
