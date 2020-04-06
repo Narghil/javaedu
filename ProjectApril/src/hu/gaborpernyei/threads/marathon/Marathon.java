@@ -53,7 +53,7 @@ public class Marathon implements Runnable, WaitingAble {
         mainThread.start();
     }
 
-    LongDistanceRunner[] runners = new LongDistanceRunner[5];
+    LongDistanceRunner[] ldrRunners = new LongDistanceRunner[5];
     Thread[] threads = new Thread[5];
     Random rnd = new Random();
     private Boolean boolRaceEnded = false; //Befejeződött-e a verseny?
@@ -61,8 +61,8 @@ public class Marathon implements Runnable, WaitingAble {
     //public void doIt() {
     public void run(){
         for (int i = 0; i < 5; i++) {
-            runners[i] = new LongDistanceRunner(this, "Futó_" + (i+1), 8.0 + rnd.nextFloat() * 18); //Sebesség 8 és 26 között legyen.
-            threads[i] = new Thread(runners[i]);
+            ldrRunners[i] = new LongDistanceRunner(this, "Futó_" + (i+1), 8.0 + rnd.nextFloat() * 18); //Sebesség 8 és 26 között legyen.
+            threads[i] = new Thread(ldrRunners[i]);
             threads[i].start();
         }
         //3 másodperc késleltetés...
@@ -71,10 +71,10 @@ public class Marathon implements Runnable, WaitingAble {
         }
         ;
         //Startjel kiadása...
-        for (LongDistanceRunner ldr:runners ) {
+        for (LongDistanceRunner ldr: ldrRunners) {
             ldr.setBoolRaceStarted( true );
         }
-        for (LongDistanceRunner ldr:runners ) {
+        for (LongDistanceRunner ldr: ldrRunners) {
             doNotify(ldr);
         }
         System.out.println("A verseny elindult.");
@@ -84,7 +84,7 @@ public class Marathon implements Runnable, WaitingAble {
         while( ! boolRaceEnded ) {
             doWait(this);
             boolRaceEnded = true;
-            for (LongDistanceRunner ldr : runners) {
+            for (LongDistanceRunner ldr : ldrRunners) {
                 synchronized( ldr ) {
                     boolRaceEnded = boolRaceEnded && (ldr.getDblDistanceYet() <= 0.0d);
                 }
@@ -100,15 +100,15 @@ class LongDistanceRunner implements Runnable, WaitingAble{
     private final Double dblWholeDistance = 42.195d;  //A teljes táv
     private Double dblDistanceYet = dblWholeDistance; //Ennyit kell még lefutnia
     private Boolean boolRaceStarted = false;
-    private final long timeStep = 1000;     //Másodpercenkénti aktivitás...
-    private final long timeMultiplier = 30; //1 másodperc valós idő a programban ennyi perc a futásban. A feladatleírás 1-et mond, én ennyit vettem, hogy ne őszüljek meg a végéig.
-    private Double unitDistance;            //1p alatt ennyit halad a futó.
+    private final long lngTimeStep = 1000;     //Másodpercenkénti aktivitás...
+    private final long lngTimeMultiplier = 30; //1 másodperc valós idő a programban ennyi perc a futásban. A feladatleírás 1-et mond, én ennyit vettem, hogy ne őszüljek meg a végéig.
+    private Double dblUnitDistance;            //1p alatt ennyit halad a futó.
     private Marathon race;                  //Ezen a versenyen fut a futó.
 
     public LongDistanceRunner( Marathon race, String name, double kmPerH ){
         this.race = race;
         this.strName = name; this.dblSpeed = kmPerH;
-        this.unitDistance = (kmPerH / 60.0d) * timeMultiplier;
+        this.dblUnitDistance = (kmPerH / 60.0d) * lngTimeMultiplier;
     }
 
     public void setBoolRaceStarted(Boolean started){
@@ -131,9 +131,9 @@ class LongDistanceRunner implements Runnable, WaitingAble{
         }
         while( dblDistanceYet > 0 ){
             try {
-                sleep( timeStep );
+                sleep(lngTimeStep);
                 //Csökkentjük a hátralévő távolságot
-                this.dblDistanceYet -= this.unitDistance;
+                this.dblDistanceYet -= this.dblUnitDistance;
                 //Kiírjuk a megtett utat.
                 System.out.printf(this.strName + " %6.3f km-t tett meg.%n",(this.dblWholeDistance - this.dblDistanceYet) );
             } catch (InterruptedException e) {
